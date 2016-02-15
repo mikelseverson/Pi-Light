@@ -7,9 +7,15 @@ var Led = function (pin) {
 	this.on = false;
 	this.pin = pin
 	this.turnOn = function() {
-		gpio.write(led, true, (err) => {
+		gpio.write(this.pin, true, (err) => {
 			if(err) throw err;
 			this.on = true;
+		})
+	}
+	this.turnOff = function() {
+		gpio.write(this.pin, false, (err) => {
+			if(err) throw err;
+			this.on = false;
 		})
 	}
 	gpio.setup(this.pin, gpio.DIR_OUT);
