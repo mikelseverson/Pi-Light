@@ -34,7 +34,8 @@ var ledStatus = function() {
 }
 
 app.get('/', function(req, res) {
-	res.json(ledStatus());
+	freshStatus = ledStatus()
+	res.json(freshStatus);
 });
 
 app.get('/on/:led', function(req, res) {
@@ -42,19 +43,19 @@ app.get('/on/:led', function(req, res) {
 	if(led == 7) {
 		led7.turnOn();
 		freshStatus = ledStatus()
-		res.json(status);
+		res.json(freshStatus);
 	}
 	else if(led == 11) {
 		led11.turnOn();
 		freshStatus = ledStatus()
-		res.json(status);	}
+		res.json(freshStatus);	}
 });
 
 app.get('/on', function(req, res){
 	led7.turnOn();
 	led11.turnOn();
 	freshStatus = ledStatus()
-	res.json(status);
+	res.json(freshStatus);
 });
 
 app.get('/off/:led', function(req, res) {
@@ -66,14 +67,14 @@ app.get('/off/:led', function(req, res) {
 		led11.turnOff();
 	}
 	freshStatus = ledStatus()
-	res.json(status);
+	res.json(freshStatus);
 });
 
 app.get('/off', function(req, res) {
 	led7.turnOff();
 	led11.turnOff();
 	freshStatus = ledStatus()
-	res.json(status);
+	res.json(freshStatus);
 });
 
 app.listen(3000, function() {
