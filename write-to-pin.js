@@ -41,36 +41,39 @@ app.get('/on/:led', function(req, res) {
 	led = req.params.led
 	if(led == 7) {
 		led7.turnOn();
-		res.json(ledStatus());
+		freshStatus = ledStatus()
+		res.json(status);
 	}
 	else if(led == 11) {
 		led11.turnOn();
-		res.json(ledStatus());
-	}
+		freshStatus = ledStatus()
+		res.json(status);	}
 });
 
 app.get('/on', function(req, res){
 	led7.turnOn();
 	led11.turnOn();
-	res.json(ledStatus());
+	freshStatus = ledStatus()
+	res.json(status);
 });
 
 app.get('/off/:led', function(req, res) {
 	led = req.params.led
 	if(led == 7) {
 		led7.turnOff();
-		res.json(ledStatus());
 	}
 	else if(led == 11) {
 		led11.turnOff();
-		res.json(ledStatus());
 	}
+	freshStatus = ledStatus()
+	res.json(status);
 });
 
 app.get('/off', function(req, res) {
 	led7.turnOff();
 	led11.turnOff();
-	res.json(ledStatus());
+	freshStatus = ledStatus()
+	res.json(status);
 });
 
 app.listen(3000, function() {
