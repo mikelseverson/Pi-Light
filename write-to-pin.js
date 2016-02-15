@@ -30,6 +30,7 @@ var ledStatus = function() {
 		led7: led7.on,
 		led11: led11.on
 	}
+	return status;
 }
 
 app.get('/', function(req, res) {
