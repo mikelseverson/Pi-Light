@@ -4,15 +4,16 @@ var express = require('express');
 app = express();
 
 var Led = function (pin) {
+
 	this.on = false;
-	this.pin = pin
+	this.pin = pin;
 	this.turnOn = function() {
 		gpio.write(this.pin, true, (err) => {
 			if(err) throw err;
 			this.on = true;
 		})
 	}
-	this.turnOff = function() {
+	this.turnOff = function(callback) {
 		gpio.write(this.pin, false, (err) => {
 			if(err) throw err;
 			this.on = false;
@@ -24,38 +25,35 @@ var Led = function (pin) {
 var led7 = new Led(11);
 var led11 = new Led(7)
 
-
-var ledStatus = function() {
-	var status = {
+app.get('/', function(req, res) {
+	res.json({
 		led7: led7.on,
 		led11: led11.on
-	}
-	return status;
-}
-
-app.get('/', function(req, res) {
-	freshStatus = ledStatus()
-	res.json(freshStatus);
+	});
 });
 
 app.get('/on/:led', function(req, res) {
 	led = req.params.led
 	if(led == 7) {
 		led7.turnOn();
-		freshStatus = ledStatus()
-		res.json(freshStatus);
 	}
 	else if(led == 11) {
 		led11.turnOn();
-		freshStatus = ledStatus()
-		res.json(freshStatus);	}
+	}
+	setTimeout(100);
+	res.json({
+		led7: led7.on,
+		led11: led11.on
+	})
 });
-
 app.get('/on', function(req, res){
 	led7.turnOn();
 	led11.turnOn();
-	freshStatus = ledStatus()
-	res.json(freshStatus);
+	setTimeout(100);
+	res.json({
+		led7: led7.on,
+		led11: led11.on
+	});
 });
 
 app.get('/off/:led', function(req, res) {
@@ -66,15 +64,21 @@ app.get('/off/:led', function(req, res) {
 	else if(led == 11) {
 		led11.turnOff();
 	}
-	freshStatus = ledStatus()
-	res.json(freshStatus);
+	setTimeout(100);
+	res.json({
+		led7: led7.on,
+		led11: led11.on
+	});
 });
 
 app.get('/off', function(req, res) {
 	led7.turnOff();
 	led11.turnOff();
-	freshStatus = ledStatus()
-	res.json(freshStatus);
+	setTimeout(100);
+	res.json({
+		led7: led7.on,
+		led11: led11.on
+	});
 });
 
 app.listen(3000, function() {
