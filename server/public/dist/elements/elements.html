@@ -22558,12 +22558,12 @@ module.exports = Array.isArray || function (arr) {
 </dom-module>
 <dom-module id="home-greeting" assetpath="greeting/">
   	<template>
-      <iron-ajax auto="" url="/api/" handle-as="json" on-response="handleResponse" ,="" debounce-duration="300"></iron-ajax>
+      <iron-ajax auto="" url="/api/" handle-as="json" on-response="handleResponse" ,="" lastresponse="{{status}}" debounce-duration="300"></iron-ajax>
 
 		<h2 class="page-title">Welcome</h2>
 		<p class="subhead">Go ahead... click the toggle</p>
-    light 1: <paper-toggle-button id="led7"></paper-toggle-button>{{status.led7}}
-    light 2: <paper-toggle-button id="led11"></paper-toggle-button>{{status.led11}}
+    light 1: <paper-toggle-button></paper-toggle-button>
+    light 2: <paper-toggle-button></paper-toggle-button>
 	</template>
 	<script>
 	(function() {
@@ -22571,18 +22571,9 @@ module.exports = Array.isArray || function (arr) {
 
       Polymer({
         	is: 'home-greeting',
-          properties: {
-            status: {
-<<<<<<< HEAD
-              type: Object
-=======
-              type: object
->>>>>>> f11882919b14a271e2e168ccb958471d543c55bd
-            }
-          },
           handleResponse: function(request) {
-            this.status = request.detail.response;
-            console.log(this.status);
+            console.log(request.detail.response);
+            console.log(this.$.ajax.lastResponse);
           }
     	});
     })();
