@@ -38,10 +38,23 @@ app.get('/on/:led', function(req, res) {
 		led11.turnOn();
 		res.send('turned on 11');
 	}
-	else {
-		led7.turnOn();
-		led11.turnOn();
-		res.send('turning all leds on');
+});
+
+app.get('/on') {
+	led7.turnOn();
+	led11.turnOn();
+	res.send('turning all leds on');
+}
+
+app.get('/off/:led', function(req, res) {
+	led = req.params.led
+	if(led == 7) {
+		led7.turnOff();
+		res.send('turned off 7');
+	}
+	else if(led == 11) {
+		led11.turnOff();
+		res.send('turned off 11');
 	}
 });
 
