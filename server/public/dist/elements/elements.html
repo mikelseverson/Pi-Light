@@ -22587,6 +22587,7 @@ module.exports = Array.isArray || function (arr) {
           },
           toggleHandler: function (e) {
             var ledPin = e.target.id
+            console.log(e);
             this.$.xhr.send({url: '/api/off/' + ledPin});
           }
     	});
