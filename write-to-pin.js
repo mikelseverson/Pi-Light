@@ -18,7 +18,7 @@ var Led = function (pin) {
 		gpio.write(this.pin, false, (err) => {
 			if(err) throw err;
 			this.on = false;
-			return callback()
+			if(callback) return callback()
 		})
 	}
 	gpio.setup(this.pin, gpio.DIR_OUT);
