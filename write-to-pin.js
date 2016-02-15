@@ -40,11 +40,11 @@ app.get('/on/:led', function(req, res) {
 	}
 });
 
-app.get('/on') {
+app.get('/on', {
 	led7.turnOn();
 	led11.turnOn();
 	res.send('turning all leds on');
-}
+});
 
 app.get('/off/:led', function(req, res) {
 	led = req.params.led
