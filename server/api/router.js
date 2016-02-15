@@ -26,14 +26,14 @@ var led7 = new Led(11);
 var led11 = new Led(7)
 
 
-app.get('/', function(req, res) {
+router.get('/', function(req, res) {
 	res.json({
 		led7: led7.on,
 		led11: led11.on
 	});
 });
 
-app.get('/on/:led', function(req, res) {
+router.get('/on/:led', function(req, res) {
 	led = req.params.led
 	if(led == 7) {
 		led7.turnOn(function() {
@@ -54,7 +54,7 @@ app.get('/on/:led', function(req, res) {
 });
 
 
-app.get('/on', function(req, res){
+router.get('/on', function(req, res){
 	led7.turnOn();
 	led11.turnOn(function() {
 			res.json({
@@ -64,7 +64,7 @@ app.get('/on', function(req, res){
 		});
 });
 
-app.get('/off/:led', function(req, res) {
+router.get('/off/:led', function(req, res) {
 	led = req.params.led
 	if(led == 7) {
 		led7.turnOff(function() {
@@ -84,7 +84,7 @@ app.get('/off/:led', function(req, res) {
 	}
 });
 
-app.get('/off', function(req, res) {
+router.get('/off', function(req, res) {
 	led7.turnOff();
 	led11.turnOff(function() {
 			res.json({
