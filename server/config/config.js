@@ -4,7 +4,7 @@ var config = {
   dev: 'development',
   test: 'testing',
   prod: 'production',
-  port: process.env.PORT || 5000,
+  port: process.env.PORT || 3000,
   dist: { 
   	defaultFile: "/index.html"
   },
