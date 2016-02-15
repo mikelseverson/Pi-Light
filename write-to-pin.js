@@ -24,44 +24,49 @@ var Led = function (pin) {
 var led7 = new Led(11);
 var led11 = new Led(7)
 
+var status = {
+	led7: led7.on,
+	led11: led11.on
+}
+
 app.get('/', function(req, res) {
-	res.send("led7: " + led7.on + " led11: " + led11.on);
+	res.json(status);
 });
 
 app.get('/on/:led', function(req, res) {
 	led = req.params.led
 	if(led == 7) {
 		led7.turnOn();
-		res.send('turned on 7');
+		res.json(status);
 	}
 	else if(led == 11) {
 		led11.turnOn();
-		res.send('turned on 11');
+		res.json(status);
 	}
 });
 
 app.get('/on', function(req, res){
 	led7.turnOn();
 	led11.turnOn();
-	res.send('turning all leds on');
+	res.json(status);
 });
 
 app.get('/off/:led', function(req, res) {
 	led = req.params.led
 	if(led == 7) {
 		led7.turnOff();
-		res.send('turned off 7');
+		res.json(status);
 	}
 	else if(led == 11) {
 		led11.turnOff();
-		res.send('turned off 11');
+		res.json(status);
 	}
 });
 
 app.get('/off', function(req, res) {
 	led7.turnOff();
 	led11.turnOff();
-	res.send('Turning them off');
+	res.json(status);
 });
 
 app.listen(3000, function() {
