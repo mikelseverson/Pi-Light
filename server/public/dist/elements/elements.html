@@ -22559,12 +22559,14 @@ module.exports = Array.isArray || function (arr) {
 <dom-module id="home-greeting" assetpath="greeting/">
   <template>
     <iron-ajax auto="" url="/api/" handle-as="json" on-response="handleResponse" ,="" debounce-duration="300"></iron-ajax>
+    <iron-ajax auto="" url="/api/" handle-as="json" on-response="handleResponse" ,="" debounce-duration="300"></iron-ajax>
+    <iron-request id="xhr"></iron-request>
 
 		<h2 class="page-title">Welcome</h2>
 		<p class="subhead">Go ahead... click the toggle</p>
 
-    light 1: <paper-toggle-button id="led7" checked="{{status.led7}}"></paper-toggle-button>
-    light 2: <paper-toggle-button id="led11" checked="{{status.led11}}"></paper-toggle-button>
+    light 1: <paper-toggle-button id="7" checked="{{status.led7}}"></paper-toggle-button>
+    light 2: <paper-toggle-button id="11" checked="{{status.led11}}"></paper-toggle-button>
 	</template>
 
 	<script>
@@ -22572,6 +22574,9 @@ module.exports = Array.isArray || function (arr) {
       'use strict';
       Polymer({
         	is: 'home-greeting',
+          listeners: {
+            'change' : 'toggleHandler'
+          },
           properties: {
             status: {
               type: Object
@@ -22579,6 +22584,10 @@ module.exports = Array.isArray || function (arr) {
           },
           handleResponse: function(request) {
             this.status = request.detail.response;
+          },
+          toggleHandler: function (e) {
+            var ledPin = e.target.id
+            this.$.xhr.send({url: '/api/off/' + ledPin});
           }
     	});
     })();
