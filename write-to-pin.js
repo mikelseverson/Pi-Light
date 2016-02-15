@@ -7,7 +7,7 @@ var Led = function (pin) {
 
 	this.on = false;
 	this.pin = pin;
-	this.turnOn = function() {
+	this.turnOn = function(callback) {
 		gpio.write(this.pin, true, (err) => {
 			if(err) throw err;
 			this.on = true;
