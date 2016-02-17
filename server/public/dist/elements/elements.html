@@ -22557,16 +22557,57 @@ module.exports = Array.isArray || function (arr) {
   </template>
 </dom-module>
 <dom-module id="home-greeting" assetpath="greeting/">
+  <style>
+  .container {
+    @apply(--layout-horizontal);
+  }
+  .flexchild {
+    @apply(--layout-flex);
+  }
+  .flex2child {
+    @apply(--layout-flex-2);
+  }
+  .flex3child {
+    @apply(--layout-flex-3);
+  }
+  .active {
+    --iron-icon-fill-color: green
+  }
+
+  </style>
+
+
   <template>
     <iron-ajax auto="" url="/api/" handle-as="json" on-response="handleResponse" ,="" debounce-duration="300"></iron-ajax>
-    <iron-ajax auto="" url="/api/" handle-as="json" on-response="handleResponse" ,="" debounce-duration="300"></iron-ajax>
-    <iron-request id="xhr"></iron-request>
+
+    <iron-ajax id="lightswitch" url="/api/" handle-as="json" on-response="handleResponse" ,="" debounce-duration="300"></iron-ajax>
+
 
 		<h2 class="page-title">Welcome</h2>
 		<p class="subhead">Go ahead... click the toggle</p>
+    <div class="container">
+      <div class="flex3child">
+        <iron-icon class$="{{activeColor(status.led7)}}" icon="icons:track-changes"></iron-icon>
+        Light 1:
+        <paper-toggle-button id="7" checked$="{{status.led7}}"></paper-toggle-button>
+      </div>
+      <div class="flex3child">
+        <iron-icon class$="{{activeColor(status.led11)}}" icon="icons:track-changes"></iron-icon>
+        Light 2:
+        <paper-toggle-button id="11" checked$="{{status.led11}}"></paper-toggle-button>
+      </div>
+      <div class="flex3child">
+        <iron-icon class$="{{activeColor(status.led7)}}" icon="icons:track-changes"></iron-icon>
+        Light 3:
+        <paper-toggle-button id="18" checked$="{{status.led18}}"></paper-toggle-button>
+      </div>
+      <div class="flex3child">
+        <iron-icon class$="{{activeColor(status.led11)}}" icon="icons:track-changes"></iron-icon>
+        Light 4:
+        <paper-toggle-button id="22" checked$="{{status.led22}}"></paper-toggle-button>
+      </div>
 
-    light 1: <paper-toggle-button id="7" checked="{{status.led7}}"></paper-toggle-button>
-    light 2: <paper-toggle-button id="11" checked="{{status.led11}}"></paper-toggle-button>
+    </div>
 	</template>
 
 	<script>
@@ -22583,12 +22624,32 @@ module.exports = Array.isArray || function (arr) {
             }
           },
           handleResponse: function(request) {
+            console.log('response')
             this.status = request.detail.response;
           },
           toggleHandler: function (e) {
             var ledPin = e.target.id
-            console.log(e);
-            this.$.xhr.send({url: '/api/off/' + ledPin});
+            if(e.target.checked) {
+              this.$.lightswitch.url = '/api/on/' + ledPin;
+              this.$.lightswitch.generateRequest();
+            }
+            else {
+              this.$.lightswitch.url = '/api/off/' + ledPin;
+              this.$.lightswitch.generateRequest();
+            }
+          },
+          checkStatus: function (e) {
+            this.$.lightswitch.request({
+              url: '/api/',
+              callback: function(response) {
+                console.log(response);
+              }
+            });
+          },
+          activeColor: function(active){
+            if(active) {
+              return 'active'
+            }
           }
     	});
     })();
