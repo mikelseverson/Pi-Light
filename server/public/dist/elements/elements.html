@@ -22587,22 +22587,22 @@ module.exports = Array.isArray || function (arr) {
 		<p class="subhead">Go ahead... click the toggle</p>
     <div class="container">
       <div class="flex3child">
-        <iron-icon class$="{{activeColor(status.led7)}}" icon="icons:track-changes"></iron-icon>
+        <iron-icon class="{{activeColor(status.led7)}}" icon="icons:track-changes"></iron-icon>
         Light 1:
         <paper-toggle-button id="7" checked$="{{status.led7}}"></paper-toggle-button>
       </div>
       <div class="flex3child">
-        <iron-icon class$="{{activeColor(status.led11)}}" icon="icons:track-changes"></iron-icon>
+        <iron-icon class="{{activeColor(status.led11)}}" icon="icons:track-changes"></iron-icon>
         Light 2:
         <paper-toggle-button id="11" checked$="{{status.led11}}"></paper-toggle-button>
       </div>
       <div class="flex3child">
-        <iron-icon class$="{{activeColor(status.led7)}}" icon="icons:track-changes"></iron-icon>
+        <iron-icon class="{{activeColor(status.led18)}}" icon="icons:track-changes"></iron-icon>
         Light 3:
         <paper-toggle-button id="18" checked$="{{status.led18}}"></paper-toggle-button>
       </div>
       <div class="flex3child">
-        <iron-icon class$="{{activeColor(status.led11)}}" icon="icons:track-changes"></iron-icon>
+        <iron-icon class="{{activeColor(status.led22)}}" icon="icons:track-changes"></iron-icon>
         Light 4:
         <paper-toggle-button id="22" checked$="{{status.led22}}"></paper-toggle-button>
       </div>
@@ -22624,7 +22624,6 @@ module.exports = Array.isArray || function (arr) {
             }
           },
           handleResponse: function(request) {
-            console.log('response')
             this.status = request.detail.response;
           },
           toggleHandler: function (e) {
